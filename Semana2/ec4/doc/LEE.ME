@@ -1,0 +1,53 @@
+Proyecto Resolución de ecuaciones de Cuarto Grado
+
+$Id: LEE.ME,v 1.1.1.1 2018/01/29 20:36:45 hpl Exp $
+
+$Author: hpl $
+
+	Este programa resuelve análiticamente las ecuaciones del grado 0 al
+4.
+
+	El programa se ejecuta:
+
+	ec4 a0 a1 a2 a3 a4
+
+	donde:
+	
+	a0,a1,a2,a3,a4: Coeficientes de la ecuación a0+a1x+a2x^2+a3x^3+a4x^4
+
+	Si a4 es 0, se resuelve la ecuación cúbica asociada.
+	Si además a3 es 0, se resuelve la ecuación cuadrática asociada.
+	Si además a2 es 0, se resuelve la ecuación líneal asociada.
+	Si además a1 es 0, se resuelve la ecuación constante asociada.
+
+	La ecuación de cuarto grado se resuelve con la ayuda de las 
+ecuaciones encontradas en: I. Bronshtein, K. Semendiaev, "Manual de
+Matemáticas para Ingenieros y Estudiantes", ECP, México 1985.
+
+	La ecuación de tercer grado Idem.
+	
+	La ecuación de segundo grado con la ecuación del chicharronero.
+	
+	La ecuación de primer grado y grado 0 se resuelven despejando.
+
+	El codigo fuente esta dividido en los siguientes modulos:
+
+	grado0: Resolución de la ecuación de grado0.
+
+	grado1: Resolución de la ecuación de grado1.
+
+	grado2: Resolución de la ecuación de grado2.
+
+	grado3: Resolución de la ecuación de grado3.
+
+	grado4: Resolución de la ecuación de grado4.
+
+	lib: librerías para este proyecto.
+
+	ec4: Programa que usa arreglos para almacenar los coeficientes.
+
+	El programa muestra la ecuación original, verifica las raices y las
+muestra.
+
+	Los scripts .sh compilan los programas, construyen las librerias,
+borran los binarios y objetos, implementan el control de versiones.

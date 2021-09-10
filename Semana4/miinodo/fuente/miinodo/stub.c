@@ -14,10 +14,10 @@ int main(int argc, char **argv[])
         fprintf(stderr,"Fallo miinodo\n");
         exit(2);
     }
-    if(inodo>0){ 
-        fprintf("El inodo de %s es %i\n",argv[2],inodo);
+    else if(inodo){ 
+        printf("El inodo de %s es %i\n",argv[2],inodo);
     }
     else
-            printf("El archivo %s no se encuentra en el directorio %s\n",argv[2],argv[1]);
+        printf("El archivo %s no se encuentra en el directorio %s\n",argv[2],argv[1]);
     return 0;
 }

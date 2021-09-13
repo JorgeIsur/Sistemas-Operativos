@@ -9,7 +9,7 @@
 # Definici▒n de Macros                                                #
 #######################################################################
 COMPILADOR=cc
-FUENTE = miinodo.c stub.c
+FUENTE = miinodo.c stub.c busqueda.c renombrar.c
 OBJS=$(FUENTE:.c=.o)
 HEADER=miinodo.h
 PROG= $(RUTA_BIN)miinodo

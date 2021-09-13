@@ -6,4 +6,6 @@
 #include <errno.h>
 #include <unistd.h>
 #include <dirent.h>
-int miinodo(char *,char *); 
+#include <ftw.h>
+int miinodo(char *,char *);
+int escaneoDir(char *);

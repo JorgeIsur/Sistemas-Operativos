@@ -16,7 +16,7 @@ char *dimeprofesor(int numcubiculos)
         /* Abrir por primera vez el archivo de profesores */
         if(departamento==-1)
         {
-                if((departamento=open("profesores",O_RDONLY))<0)
+                if((departamento=open("profesores",O_RDWR))<0)
                         return NULL;
         }
         /* Calcular el desplazamiento */

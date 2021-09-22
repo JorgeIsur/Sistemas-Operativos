@@ -9,7 +9,7 @@
 # Definici▒n de Macros                                                #
 #######################################################################
 COMPILADOR=cc
-FUENTE = cubiculos.c dimeprofesor.c
+FUENTE = cubiculos.c dimeprofesor.c agregaProfesor.c cambiarCubiculo.c limpiarCubiculo.c
 OBJS=$(FUENTE:.c=.o)
 HEADER=cubiculos.h
 PROG= $(RUTA_BIN)cubiculos

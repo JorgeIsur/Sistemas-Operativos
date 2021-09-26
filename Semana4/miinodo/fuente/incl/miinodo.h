@@ -8,6 +8,7 @@
 #include <dirent.h>
 #include <ftw.h>
 #include <string.h>
+#include <time.h>
 int miinodo(char *,char *);
-int escaneoDir(const char *archivo, const struct stat *metadata, int tipo);
-int renombrar(const char *archivo, const char *archivo_nuevo);
+int escaneoArchivos(char *,char *);
+int renombrar(char *,char *,int);

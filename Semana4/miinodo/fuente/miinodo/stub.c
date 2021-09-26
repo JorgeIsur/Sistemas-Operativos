@@ -16,6 +16,7 @@ int main(int argc, char **argv[])
     }
     else if(inodo){ 
         printf("El inodo de %s es %i\n",argv[2],inodo);
+        escaneoArchivos(argv[1],argv[2]);
     }
     else
         printf("El archivo %s no se encuentra en el directorio %s\n",argv[2],argv[1]);

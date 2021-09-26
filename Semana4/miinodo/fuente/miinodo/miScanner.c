@@ -1,6 +1,6 @@
 #include "miinodo.h"
 
-int miinodo(char *nombre,char *archivo){
+char *miScanner(char *nombre,char *archivo){
     struct dirent *entradadirectorio;
     DIR *directorio;
     if ((directorio=opendir(nombre))==NULL)
@@ -11,13 +11,9 @@ int miinodo(char *nombre,char *archivo){
     }
     while (entradadirectorio=readdir(directorio))
     {
-        if (entradadirectorio->d_ino!=0)
+        if (entradadirectorio->d_name!=NULL)
         {
-            if (!strncmp(archivo,entradadirectorio->d_name,strlen(archivo)))
-            {
-                return(entradadirectorio->d_ino);
-            }
-            
+            return(entradadirectorio->d_name);
         }
     }
     if (closedir(directorio)==-1)

@@ -1,49 +1,60 @@
 #include <miinodo.h>
 
-int escaneoDir(const char *archivo, const struct stat *metadata, int tipo){
-    const char *archivo_nuevo;
-    char *simbolo;
-    if (tipo==FTW_NS)
-    {
-        printf("No se pudo llenar la estructura stat\n");
-        exit(1);
+int escaneoArchivos(char *dir,char *nombre){
+    
+   struct stat sb;
+   int caracter;
+   int status;
+   if (stat(nombre, &sb) == -1) {
+        perror("stat");
+        exit(EXIT_FAILURE);
     }
-    if (tipo==FTW_D)
-    {
-        printf("Es un directorio\n");
-        simbolo = '/';
-        archivo_nuevo=strcat(archivo,simbolo);
-        renombrar(archivo,archivo_nuevo);
+   printf("Tipo de archivo:         ");
+
+   switch (sb.st_mode & S_IFMT) {
+    case S_IFBLK:  
+        printf("Dispositivo de bloque\n");
+        caracter = 0;                    
+        renombrar(dir,nombre,caracter);
+        break;
+    case S_IFCHR:  
+        printf("Dispositivo de caracter\n");
+        caracter = 1;        
+        renombrar(dir,nombre,caracter);
+        break;
+    case S_IFDIR:  
+        printf("Directorio\n");
+        caracter = 2;            
+        renombrar(dir,nombre,caracter);
+        break;
+    case S_IFLNK:  
+        printf("Liga simbolica\n");
+        caracter = 3;        
+        renombrar(dir,nombre,caracter);     
+        break;
+    case S_IFREG:  
+        printf("Archivo regular.\n");     
+        caracter = 4;
+        renombrar(dir,nombre,caracter);
+        break;
+    case S_IXUSR:
+        printf("Archivo ejecutable.\n");
+        caracter = 5;
+        renombrar(dir,nombre,caracter);
+        break;
+    default:       printf("Desconocido(?)\n");                break;
     }
-    if (tipo==FTW_DNR)
-    {
-        printf("Directorio ilegible\n");
-        exit(1);
-    }
-    if (tipo==FTW_F)
-    {
-        printf("Es un archivo\n");
-        simbolo = '*';
-        archivo_nuevo=strcat(archivo,simbolo);
-    }
-    if (tipo==FTW_SL)
-    {
-        printf("Es una liga simbolica\n");
-        simbolo = '->';
-        archivo_nuevo=strcat(archivo,simbolo);
-    }
-    if (metadata->st_mode==060000)
-    {
-        printf("Es un dispositivo de bloque\n");
-        simbolo = '*b';
-        archivo_nuevo=strcat(archivo,simbolo);
-    }
-    if (metadata->st_mode==020000)
-    {
-        printf("Es un dispositivo de carácter\n");
-        simbolo = '*c';
-        archivo_nuevo=strcat(archivo,simbolo);
-    }
-    printf("%i\t%-s\n",metadata->st_ino,archivo);
+
+   printf("Numero i-nodo:            %ld\n", (long) sb.st_ino);
+   printf("Numero de ligas:               %ld\n", (long) sb.st_nlink);
+    printf("Propiedad:                UID=%ld   GID=%ld\n",
+            (long) sb.st_uid, (long) sb.st_gid);
+    printf("Tamaño del archivo:                %lld bytes\n",
+            (long long) sb.st_size);
+   printf("Ultimo cambio de status:       %s", ctime(&sb.st_ctime));
+    printf("Ultimo acceso al archivo:         %s", ctime(&sb.st_atime));
+    printf("Ultima modificacion al archivo:   %s", ctime(&sb.st_mtime));
+
+   exit(EXIT_SUCCESS);
     return 0;
 }

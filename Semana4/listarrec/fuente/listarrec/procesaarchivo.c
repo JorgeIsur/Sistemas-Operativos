@@ -1,6 +1,7 @@
 #include "listarrec.h"
 
 int procesaarchivo(const char *archivo, const struct stat *metadata, int tipo){
+    
     switch (tipo)
     {
     case FTW_NS:

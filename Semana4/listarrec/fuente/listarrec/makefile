@@ -9,7 +9,7 @@
 # Definici▒n de Macros                                                #
 #######################################################################
 COMPILADOR=cc
-FUENTE = procesaarchivo.c stub.c
+FUENTE = procesaarchivo.c stub.c escaneoDir.c
 OBJS=$(FUENTE:.c=.o)
 HEADER=listarrec.h
 PROG= $(RUTA_BIN)procesaarchivo

@@ -3,7 +3,10 @@
 int renombrar(char *dir,char *nombre, int caracter){
     char *opciones[6] = {"*b","*c","/","->","@","*"};
     char *newName;
+    char *ruta = realpath(nombre,NULL);
+    char *newRoute;
     int ret;
+
     struct dirent *entradadirectorio;
     DIR *directorio;
     for (int i = 0; opciones[i]; i++){
@@ -23,7 +26,7 @@ int renombrar(char *dir,char *nombre, int caracter){
     while (entradadirectorio=readdir(directorio))
     {
         printf("%s\n",entradadirectorio->d_name);
-        if ((ret=rename(entradadirectorio->d_name,newName)==0))
+        if ((ret=rename(ruta,newName)==0))
         {
             printf("Renombrado exitoso.\n");
             return 1;

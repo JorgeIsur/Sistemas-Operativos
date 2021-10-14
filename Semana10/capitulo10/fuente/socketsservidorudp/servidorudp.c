@@ -5,11 +5,17 @@ int main(int argc,char **argv)
 {
 	int socketnuevo,puerto;
 	char caracter;
-
+	struct timeval timeout;
+	timeout.tv_sec = 5;
+	timeout.tv_usec = 0;
+	fd_set rds;
+	FD_ZERO(&rds);
+	FD_SET(socketnuevo,&rds);
+	int res;
 	/* Puerto del servidor */
-	struct sockaddr_in servidor={AF_INET,1991,INADDR_ANY};
+	struct sockaddr_in servidor={AF_UNIX,1991,INADDR_ANY};
 
-	/* La estructura guarda la dirección del proceso2 */
+	/* La estructura guarda la direcciï¿½n del proceso2 */
 	struct sockaddr_in cliente;
 	int longitud_cliente=TAM;
 
@@ -42,11 +48,21 @@ int main(int argc,char **argv)
 		error("Fallo la IP ... se fundio el foco :-<");
 		exit(4);
 	}
+	printf("Escuchando...\n");
+	if((res=select(socketnuevo+1,&rds,NULL,NULL,&timeout))<=0){
+		if(res<0){
+			printf("Fallido\n");
+		}
+		else{
+			printf("Tiempo de espera terminado...\n");
 
+		}
+		exit(0);
+	}
 	/* Un ciclo para esperar mensajes */
 	for(;;)
 	{
-		/* Recibir el mensaje y guardar la dirección del clientee */
+		/* Recibir el mensaje y guardar la direcciï¿½n del clientee */
 		if(recvfrom(socketnuevo,&caracter,1,0,&cliente,&longitud_cliente)==-1)
 		{
 			error("servidor:recibiendo");
@@ -61,7 +77,6 @@ int main(int argc,char **argv)
 			error("servidor:enviando");
 			continue;
 		}
-
 	}
 
 	return(0);

@@ -7,5 +7,6 @@
 #include <netinet/in.h>
 #include <arpa/inet.h>
 #include <signal.h>
-
+#include <time.h>
+#include <sys/select.h>
 #define TAM sizeof(struct sockaddr_in)

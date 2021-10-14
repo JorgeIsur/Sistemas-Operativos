@@ -7,10 +7,10 @@ int main(int argc,char **argv)
 	char caracter;
 
 	/* Puerto en el cliente */
-	struct sockaddr_in cliente={AF_INET,INADDR_ANY,INADDR_ANY};
+	struct sockaddr_in cliente={AF_UNIX,INADDR_ANY,INADDR_ANY};
 
 	/* Direccion del servidor */
-    struct sockaddr_in servidor={AF_INET,1991};
+    struct sockaddr_in servidor={AF_UNIX,1991};
 
     if(argc!=3)
     {

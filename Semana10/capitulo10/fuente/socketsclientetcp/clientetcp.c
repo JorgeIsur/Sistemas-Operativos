@@ -5,7 +5,7 @@ int main(int argc,char **argv)
 {
 	int sockfd,puerto;
 	char caracter,caracterleido;
-	struct sockaddr_in server={AF_INET,1991};
+	struct sockaddr_in server={AF_UNIX,1991};
 
 	if(argc!=3)
 	{
@@ -44,7 +44,7 @@ int main(int argc,char **argv)
 		exit(5);
 	}
 
-	/* Enviar y recibir información del servidor */
+	/* Enviar y recibir informaciï¿½n del servidor */
 	for(;caracterleido!='\n';)
 	{
 		read(0,&caracter,1);

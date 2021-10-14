@@ -8,7 +8,14 @@ int main(int argc,char **argv)
 {
 	int sockfd,puerto;
 	char caracter;
-	struct sockaddr_in server={AF_INET,7000,INADDR_ANY};
+	struct sockaddr_in server={AF_UNIX,7000,INADDR_ANY};
+	struct timeval timeout;
+	timeout.tv_sec = 5;
+	timeout.tv_usec = 0;
+	fd_set rds;
+	FD_ZERO(&rds);
+	FD_SET(sockfd,&rds);
+	int res;
 
 	if(argc!=2)
 	{
@@ -48,10 +55,20 @@ int main(int argc,char **argv)
 		error("Fallo la escucha ... se callo el microfono :-<");
 		exit(3);
 	}
+	printf("Escuchando...\n");
+	if((res=select(sockfd+1,&rds,NULL,NULL,&timeout))<=0){
+		if(res<0){
+			printf("Fallido\n");
+		}
+		else{
+			printf("Tiempo de espera terminado...\n");
 
+		}
+		exit(0);
+	}
 	for(;;)
-	{
-		/* Aceptar una conexión */
+	{	
+		/* Aceptar una conexiï¿½n */
 		if((sokectnuevo=accept(sockfd,NULL,NULL)) == -1)
 		{
 			error("Fallo la aceptacion ... dijo que no :-<");
@@ -63,19 +80,18 @@ int main(int argc,char **argv)
 		{
 			while(recv(sokectnuevo,&caracter,1,0)>0)
 			{
+				printf("Mensaje Recibido:%s\n",&caracter);
 				caracter=toupper(caracter);
+				printf("Mensaje enviado:%s\n",&caracter);
 				send(sokectnuevo,&caracter,1,0);
 			}
-
-			/* Cuando no se envia mas información el socket
+			/* Cuando no se envia mas informaciï¿½n el socket
 				se cierra y el hijo termina */
 			close(sokectnuevo);
 			exit(0);
 		}
-
 		/* El padre no requiere el socket */
 		close(sokectnuevo);
 	}
-
 	return(0);
 }
